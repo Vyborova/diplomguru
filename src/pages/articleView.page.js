@@ -1,3 +1,5 @@
+import { expect } from "@playwright/test";
+
 export class ArticleViewPage {
   constructor(page) {
     this.page = page;
@@ -12,8 +14,7 @@ export class ArticleViewPage {
       .getByRole("link", { name: /Edit Article/i })
       .first();
     this.favoriteButton = page
-      .locator("button")
-      .filter({ has: page.locator(".ion-heart") })
+      .locator('[data-testid="favorite-button"], button:has(.ion-heart)')
       .first();
   }
 
@@ -37,7 +38,6 @@ export class ArticleViewPage {
     await this.page.waitForURL("**/#/editor/**");
   }
   async favoriteArticle() {
-    await this.page.waitForTimeout(3000); // пауза 3 сек для отладки
     await this.favoriteButton.click();
     await this.page.waitForLoadState("domcontentloaded");
   }

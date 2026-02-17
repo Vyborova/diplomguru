@@ -10,6 +10,12 @@ export class MainPage {
     this.emailInput = page.getByRole("textbox", { name: "Email" });
     this.passwordInput = page.getByRole("textbox", { name: "Password" });
     this.loginButton = page.getByRole("button", { name: "Login" });
+    this.authorLink = (name) =>
+      this.page.locator(`a.author:has-text("${name}")`).first();
+
+    this.globalFeedButton = this.page.locator(
+      'button.nav-link:has-text("Global Feed")',
+    );
   }
   //  бизнесовые действия со страницей
 
@@ -33,7 +39,7 @@ export class MainPage {
   }
 
   async openGlobalFeed() {
-    await this.page.locator('button.nav-link:has-text("Global Feed")').click();
+    await this.globalFeedButton.click();
     await this.page.waitForLoadState("domcontentloaded");
   }
 }
